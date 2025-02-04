@@ -1,6 +1,9 @@
+import 'package:findet/blocs/blocs.dart';
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/generated/l10n.dart';
 import 'package:findet/ui/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -33,24 +36,29 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      locale: _locale,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
+    return MultiBlocProvider(
+      providers: providers,
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) => MaterialApp.router(
+          locale: _locale,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+          ),
+          themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
+          routerConfig: router,
+        ),
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      themeMode: ThemeMode.dark,
-      routerConfig: router,
     );
   }
 }

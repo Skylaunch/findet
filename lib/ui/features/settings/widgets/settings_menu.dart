@@ -1,6 +1,8 @@
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/extentions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsMenu extends StatefulWidget {
   const SettingsMenu({super.key, required this.onLocalizationsNavigate});
@@ -27,7 +29,10 @@ class _SettingsMenuState extends State<SettingsMenu> {
         children: [
           SettingsMenuItem(
             text: S.of(context).theme,
-            onTap: () {},
+            onTap: () {
+              final themeBloc = context.read<ThemeBloc>();
+              themeBloc.add(ThemeChangedEvent());
+            },
           ),
           const SizedBox(height: 20),
           SettingsMenuItem(
