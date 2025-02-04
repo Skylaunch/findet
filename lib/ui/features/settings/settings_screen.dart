@@ -23,6 +23,6 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
       ),
-    ).padding(edgeInsets: const EdgeInsets.all(20));
+    ).padding(edgeInsets: const EdgeInsets.all(14));
   }
 }

@@ -51,9 +51,11 @@ class _MainAppState extends State<MainApp> {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             brightness: Brightness.light,
+            fontFamily: 'Inter',
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
+            fontFamily: 'Inter',
           ),
           themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
           routerConfig: router,

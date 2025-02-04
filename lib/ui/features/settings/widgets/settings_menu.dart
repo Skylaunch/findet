@@ -3,6 +3,7 @@ import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class SettingsMenu extends StatefulWidget {
   const SettingsMenu({super.key, required this.onLocalizationsNavigate});
@@ -17,30 +18,28 @@ class SettingsMenu extends StatefulWidget {
 class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.grey,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SettingsMenuItem(
-            text: S.of(context).theme,
-            onTap: () {
-              final themeBloc = context.read<ThemeBloc>();
-              themeBloc.add(ThemeChangedEvent());
-            },
-          ),
-          const SizedBox(height: 20),
-          SettingsMenuItem(
-            text: S.of(context).localization,
-            onTap: widget.onLocalizationsNavigate,
-          ),
-        ],
-      ).padding(edgeInsets: const EdgeInsets.all(8)),
+    final themeBloc = context.read<ThemeBloc>();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SettingsMenuItem(
+          title: S.of(context).theme,
+          selectedValue: themeBloc.state.isDark ? 'Dark' : 'Light',
+          onTap: () {
+            themeBloc.add(ThemeChangedEvent());
+            setState(() {});
+          },
+        ),
+        const SizedBox(height: 20),
+        SettingsMenuItem(
+          title: S.of(context).localization,
+          selectedValue:
+              Intl.getCurrentLocale() == 'ru' ? 'Russian' : 'English',
+          onTap: widget.onLocalizationsNavigate,
+        ),
+      ],
     );
   }
 }
@@ -48,29 +47,43 @@ class _SettingsMenuState extends State<SettingsMenu> {
 class SettingsMenuItem extends StatelessWidget {
   const SettingsMenuItem({
     super.key,
-    required this.text,
+    required this.title,
     required this.onTap,
+    required this.selectedValue,
   });
 
-  final String text;
+  final String title;
+  final String selectedValue;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          onTap: onTap,
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: 66,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          color: Colors.grey,
         ),
-      ],
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(title,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  )),
+              const SizedBox(height: 4),
+              Text(selectedValue, style: const TextStyle(fontSize: 12)),
+            ],
+          ),
+        ).padding(edgeInsets: const EdgeInsets.all(12)),
+      ),
     );
   }
 }
