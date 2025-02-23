@@ -1,4 +1,4 @@
-import 'package:findet/helpers/extentions.dart';
+import 'package:findet/helpers/extensions.dart';
 import 'package:findet/ui/features/settings/widgets/settings_menu.dart';
 import 'package:findet/ui/router/routes.dart';
 import 'package:flutter/material.dart';

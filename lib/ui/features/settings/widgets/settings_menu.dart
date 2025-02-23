@@ -1,6 +1,6 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/generated/l10n.dart';
-import 'package:findet/helpers/extentions.dart';
+import 'package:findet/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
