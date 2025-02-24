@@ -3,6 +3,7 @@ import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class SettingsMenu extends StatefulWidget {
@@ -35,8 +36,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
         const SizedBox(height: 20),
         SettingsMenuItem(
           title: S.of(context).localization,
-          selectedValue:
-              Intl.getCurrentLocale() == 'ru' ? 'Russian' : 'English',
+          selectedValue: Intl.getCurrentLocale() == 'ru' ? 'Russian' : 'English',
           onTap: widget.onLocalizationsNavigate,
         ),
       ],
@@ -65,24 +65,33 @@ class SettingsMenuItem extends StatelessWidget {
         height: 66,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16)),
-          color: Colors.grey,
+          color: Color(0xff646464),
         ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(title,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                  )),
-              const SizedBox(height: 4),
-              Text(selectedValue, style: const TextStyle(fontSize: 12)),
-            ],
-          ),
-        ).padding(edgeInsets: const EdgeInsets.all(12)),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(selectedValue, style: const TextStyle(fontSize: 12)),
+              ],
+            ).padding(edgeInsets: const EdgeInsets.all(12)),
+            const Spacer(),
+            SvgPicture.asset(
+              'lib/assets/images/icons/additionals/chevron_right.svg',
+              colorFilter: const ColorFilter.mode(Color(0xff8F9098), BlendMode.srcIn),
+            ).padding(edgeInsets: const EdgeInsets.only(right: 16)),
+          ],
+        ),
       ),
     );
   }
