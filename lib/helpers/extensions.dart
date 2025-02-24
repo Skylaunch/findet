@@ -8,3 +8,9 @@ extension WidgetExtension on Widget {
     );
   }
 }
+
+extension DateTimeComparison on DateTime {
+  bool isEqual(DateTime otherDateTime) {
+    return year == otherDateTime.year && month == otherDateTime.month && day == otherDateTime.day;
+  }
+}

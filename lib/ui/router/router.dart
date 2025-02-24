@@ -13,8 +13,7 @@ final router = GoRouter(
   initialLocation: Routes.home,
   routes: [
     StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) =>
-            AppLayoutScaffold(navigationShell: navigationShell),
+        builder: (context, state, navigationShell) => AppLayoutScaffold(navigationShell: navigationShell),
         branches: [
           StatefulShellBranch(
             routes: [

@@ -9,9 +9,9 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
           child: Column(
             children: [
               SettingsMenu(
@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    ).padding(edgeInsets: const EdgeInsets.all(14));
+      ).padding(edgeInsets: const EdgeInsets.all(14)),
+    );
   }
 }

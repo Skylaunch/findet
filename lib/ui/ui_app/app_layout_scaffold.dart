@@ -31,15 +31,13 @@ class AppLayoutScaffold extends StatelessWidget {
           NavigationDestination(
             icon: SvgPicture.asset('lib/assets/images/icons/tabs/diagram.svg'),
             label: S.of(context).diagram_tab,
-            selectedIcon: SvgPicture.asset(
-                'lib/assets/images/icons/tabs/diagram.svg',
+            selectedIcon: SvgPicture.asset('lib/assets/images/icons/tabs/diagram.svg',
                 theme: const SvgTheme(currentColor: Colors.white)),
           ),
           NavigationDestination(
             icon: SvgPicture.asset('lib/assets/images/icons/tabs/settings.svg'),
             label: S.of(context).settings_tab,
-            selectedIcon: SvgPicture.asset(
-                'lib/assets/images/icons/tabs/settings.svg',
+            selectedIcon: SvgPicture.asset('lib/assets/images/icons/tabs/settings.svg',
                 theme: const SvgTheme(currentColor: Colors.white)),
           ),
         ],
