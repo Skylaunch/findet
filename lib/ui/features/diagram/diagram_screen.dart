@@ -74,7 +74,7 @@ class _DiagramScreenState extends State<DiagramScreen> {
                               fontSize: 23,
                             ),
                           ))
-                    : const CircularProgressIndicator(),
+                    : const Center(child: CircularProgressIndicator()),
               ),
             ),
           ],
