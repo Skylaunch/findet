@@ -51,7 +51,7 @@ class _DiagramScreenState extends State<DiagramScreen> {
                               PieSeries<FinancialOperationModel?, String>(
                                 dataSource: state.financialOperations,
                                 xValueMapper: (FinancialOperationModel? value, _) => value?.category,
-                                yValueMapper: (FinancialOperationModel? value, _) => value?.financeDifference,
+                                yValueMapper: (FinancialOperationModel? value, _) => value?.subtractedValue,
                                 explode: true,
                                 explodeOffset: '10%',
                                 dataLabelSettings: const DataLabelSettings(

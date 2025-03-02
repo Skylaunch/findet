@@ -10,21 +10,21 @@ class DBDatasourceImpl extends DBDatasource {
   final mockFinanceOperationsData = [
     FinancialOperationModel(
       id: 1,
-      financeDifference: 50,
+      subtractedValue: 50,
       currency: CurrencyType.dollar,
       category: 'Здоровье',
       time: DateTime.utc(2025, 2, 22, 20, 18, 04),
     ),
     FinancialOperationModel(
       id: 2,
-      financeDifference: 50,
+      subtractedValue: 50,
       currency: CurrencyType.dollar,
       category: 'Еда',
       time: DateTime.utc(2025, 2, 22, 21, 18, 04),
     ),
     FinancialOperationModel(
       id: 3,
-      financeDifference: 50,
+      subtractedValue: 50,
       currency: CurrencyType.dollar,
       category: 'Дом',
       time: DateTime.utc(2025, 2, 21, 20, 18, 04),
