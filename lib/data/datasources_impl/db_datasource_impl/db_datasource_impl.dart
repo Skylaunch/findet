@@ -1,66 +1,54 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:findet/domain/base/global_data.dart';
 import 'package:findet/domain/datasources/db_datasource/db_datasource.dart';
-import 'package:findet/domain/models/enum/currency_type.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
-import 'package:findet/helpers/extensions.dart';
-// import 'package:firebase_database/firebase_database.dart';
 
 class DBDatasourceImpl extends DBDatasource {
-  // final FirebaseDatabase database = FirebaseDatabase.instance;
+  final database = FirebaseFirestore.instance;
 
-  final mockFinanceOperationsData = [
-    FinancialOperationModel(
-      id: 1,
-      subtractedValue: 50,
-      currency: CurrencyType.dollar,
-      category: 'Здоровье',
-      time: DateTime.utc(2025, 2, 22, 20, 18, 04),
-    ),
-    FinancialOperationModel(
-      id: 2,
-      subtractedValue: 50,
-      currency: CurrencyType.dollar,
-      category: 'Еда',
-      time: DateTime.utc(2025, 2, 22, 21, 18, 04),
-    ),
-    FinancialOperationModel(
-      id: 3,
-      subtractedValue: 50,
-      currency: CurrencyType.dollar,
-      category: 'Дом',
-      time: DateTime.utc(2025, 2, 21, 20, 18, 04),
-    ),
-  ];
+  late final financialOperationsReference = database.collection("financialOperations");
 
   @override
   Future<DateTime> getLastOperationTime() async {
-    return mockFinanceOperationsData.last.time;
+    try {
+      final lastOperationTimeAsString = await financialOperationsReference
+          .orderBy('time', descending: true)
+          .limit(1)
+          .get()
+          .then((event) => event.docs.first.data()['time']);
+
+      return DateTime.parse(lastOperationTimeAsString);
+    } catch (e, s) {
+      appLogger.e(
+        'Ошибка во время получения времени последней финансовой операции',
+        error: e,
+        stackTrace: s,
+      );
+    }
+
+    throw 'Ошибка во время получения финансовых операций';
   }
 
   @override
   Future<List<FinancialOperationModel>> getFinancesData() async {
-    // try {
-    //   final snapshot = await database.ref('financialOperations').get();
-    //   if (snapshot.exists) {
-    //     final values = snapshot.value as List;
-    //     List<FinancialOperationModel> financialOperations =
-    //         List<FinancialOperationModel>.from(
-    //       values.map(
-    //         (json) => FinancialOperationModel.fromJson(json),
-    //       ),
-    //     ).toList();
+    try {
+      final financialOperations = <FinancialOperationModel>[];
+      await financialOperationsReference.get().then((event) {
+        for (var doc in event.docs) {
+          final financialOperationJson = doc.data();
+          financialOperations.add(FinancialOperationModel.fromJson(financialOperationJson));
+        }
+      });
+      return financialOperations;
+    } catch (e, s) {
+      appLogger.e(
+        'Ошибка во время получения финансовых операций',
+        error: e,
+        stackTrace: s,
+      );
+    }
 
-    //     return financialOperations;
-    //   }
-    // } catch (e, s) {
-    //   appLogger.e(
-    //     'Ошибка во время получения финансовых операций',
-    //     error: e,
-    //     stackTrace: s,
-    //   );
-    // }
-
-    // return [];
-    return mockFinanceOperationsData;
+    return [];
   }
 
   @override
@@ -73,9 +61,26 @@ class DBDatasourceImpl extends DBDatasource {
 
   @override
   Future<List<FinancialOperationModel>> getFinancesDataForDay(DateTime filteringTime) async {
-    return mockFinanceOperationsData.where((financeOperation) {
-      return financeOperation.time.isEqual(filteringTime);
-    }).toList();
+    try {
+      final filteredFinancialOperations = <FinancialOperationModel>[];
+
+      await financialOperationsReference.where('time', isEqualTo: filteringTime.toIso8601String()).get().then((event) {
+        for (var doc in event.docs) {
+          final financialOperationJson = doc.data();
+          filteredFinancialOperations.add(FinancialOperationModel.fromJson(financialOperationJson));
+        }
+      });
+
+      return filteredFinancialOperations;
+    } catch (e, s) {
+      appLogger.e(
+        'Ошибка во время получения финансовых операций за конкретный день',
+        error: e,
+        stackTrace: s,
+      );
+    }
+
+    return [];
   }
 
   @override

@@ -31,7 +31,8 @@ class _DatesFilterState extends State<DatesFilter> {
                     // final operation = diagramBlocState.financialOperations[index];
                     // final isSelected = operation.time.isEqual(diagramBlocState.filteringTime);
 
-                    DateTime date = DateTime.now().subtract(Duration(days: index));
+                    final now = DateTime.now();
+                    DateTime date = DateTime(now.year, now.month, now.day).toUtc().subtract(Duration(days: index));
                     final isSelected = date.isEqual(diagramBlocState.filteringTime);
 
                     return InkWell(
