@@ -1,13 +1,18 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/helpers/extensions.dart';
+import 'package:findet/ui/features/home/widgets/add_operation_widget.dart';
 import 'package:findet/ui/features/home/widgets/quote_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.watch<ThemeBloc>().state.colors;
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -33,16 +38,14 @@ class HomeScreen extends StatelessWidget {
                     edgeInsets: const EdgeInsets.only(bottom: 30, top: 15),
                   ),
                   DottedBorder(
-                    color: const Color(0xffC5C6CC),
+                    color: colors.borderColor,
                     dashPattern: const [6, 6],
                     borderType: BorderType.RRect,
                     radius: const Radius.circular(16),
                     child: const SizedBox(
-                      height: 450,
+                      height: 465,
                       width: 340,
-                      child: Center(
-                        child: Text('Home screen'),
-                      ),
+                      child: Center(child: AddOperationWidget()),
                     ),
                   ),
                 ],

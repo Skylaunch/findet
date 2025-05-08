@@ -22,6 +22,8 @@ dependencies:
   dotted_border: ^2.1.0
   cloud_firestore: ^5.6.5
   firebase_core: ^3.12.1
+  dropdown_button2: ^2.3.9
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   flutter_test:
@@ -47,5 +49,6 @@ flutter:
     - lib/assets/images/icons/emotions/
     - lib/assets/images/icons/additionals/
     - lib/assets/images/quotes/
+    - lib/assets/images/app/
 flutter_intl:
   enabled: true

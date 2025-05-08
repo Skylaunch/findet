@@ -1,6 +1,7 @@
 import 'package:findet/data/datasources_impl/db_datasource_impl/db_datasource_impl.dart';
 import 'package:findet/domain/datasources/db_datasource/db_datasource.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
+import 'package:findet/helpers/global_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Эвент блока работы с диаграммами
@@ -47,9 +48,6 @@ class DiagramLoadedState extends DiagramState {
 
 class DiagramBloc extends Bloc<DiagramEvent, DiagramState> {
   DiagramBloc() : super(DiagramLoadingState()) {
-    // Переделать через DI
-    DBDatasource datasource = DBDatasourceImpl();
-
     on<DiagramStartLoadingEvent>((event, emit) async {
       final lastOperationTime = await datasource.getLastOperationTime();
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 extension WidgetExtension on Widget {
   Widget padding({required EdgeInsetsGeometry edgeInsets}) {

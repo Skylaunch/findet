@@ -1,4 +1,6 @@
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuoteItem extends StatefulWidget {
   const QuoteItem({super.key, required this.quoteText});
@@ -42,6 +44,8 @@ class _QuoteItemState extends State<QuoteItem> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.watch<ThemeBloc>().state.colors;
+
     return _isDismissed
         ? const SizedBox.shrink()
         : Dismissible(
@@ -63,7 +67,7 @@ class _QuoteItemState extends State<QuoteItem> with SingleTickerProviderStateMix
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xffD0CFF3),
+                        color: colors.quoteBackground,
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Column(
@@ -75,15 +79,15 @@ class _QuoteItemState extends State<QuoteItem> with SingleTickerProviderStateMix
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xff090909),
+                              color: Colors.black,
                             ),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             widget.quoteText,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
-                              color: Color(0xff494A50),
+                              color: colors.quoteTextColor,
                             ),
                           ),
                         ],

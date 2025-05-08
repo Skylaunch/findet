@@ -2,22 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:findet/domain/base/global_data.dart';
 import 'package:findet/domain/datasources/db_datasource/db_datasource.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
+import 'package:findet/domain/models/user_model.dart';
+import 'package:findet/helpers/global_data.dart';
 
 class DBDatasourceImpl extends DBDatasource {
   final database = FirebaseFirestore.instance;
 
-  late final financialOperationsReference = database.collection("financialOperations");
+  late final usersReference = database.collection('users');
 
   @override
   Future<DateTime> getLastOperationTime() async {
     try {
+      final financialOperationsReference = getFinancialOperationsReference();
+
       final lastOperationTimeAsString = await financialOperationsReference
           .orderBy('time', descending: true)
           .limit(1)
           .get()
-          .then((event) => event.docs.first.data()['time']);
+          .then((event) => event.docs.firstOrNull?.data()['time']);
 
-      return DateTime.parse(lastOperationTimeAsString);
+      return lastOperationTimeAsString != null ? DateTime.parse(lastOperationTimeAsString) : DateTime.now();
     } catch (e, s) {
       appLogger.e(
         'Ошибка во время получения времени последней финансовой операции',
@@ -32,13 +36,16 @@ class DBDatasourceImpl extends DBDatasource {
   @override
   Future<List<FinancialOperationModel>> getFinancesData() async {
     try {
-      final financialOperations = <FinancialOperationModel>[];
-      await financialOperationsReference.get().then((event) {
-        for (var doc in event.docs) {
-          final financialOperationJson = doc.data();
-          financialOperations.add(FinancialOperationModel.fromJson(financialOperationJson));
-        }
-      });
+      final List<FinancialOperationModel> financialOperations = [];
+      final financialOperationsReference = getFinancialOperationsReference();
+
+      final event = await financialOperationsReference.get();
+
+      for (var doc in event.docs) {
+        final financialOperationJson = doc.data();
+        financialOperations.add(FinancialOperationModel.fromJson(financialOperationJson));
+      }
+
       return financialOperations;
     } catch (e, s) {
       appLogger.e(
@@ -63,6 +70,7 @@ class DBDatasourceImpl extends DBDatasource {
   Future<List<FinancialOperationModel>> getFinancesDataForDay(DateTime filteringTime) async {
     try {
       final filteredFinancialOperations = <FinancialOperationModel>[];
+      final financialOperationsReference = getFinancialOperationsReference();
 
       await financialOperationsReference.where('time', isEqualTo: filteringTime.toIso8601String()).get().then((event) {
         for (var doc in event.docs) {
@@ -85,23 +93,65 @@ class DBDatasourceImpl extends DBDatasource {
 
   @override
   Future<void> saveFinanceData(FinancialOperationModel model) async {
-    // try {
-    //   final financialOperationRef =
-    //       FirebaseDatabase.instance.ref('financialOperations/${model.id}');
-    //   financialOperationRef.set(model.toJson());
-    // } catch (e, s) {
-    //   appLogger.e(
-    //     'Ошибка во время добавления финансовой операции',
-    //     error: e,
-    //     stackTrace: s,
-    //   );
-    // }
+    try {
+      final financialOperationsReference = getFinancialOperationsReference();
+
+      financialOperationsReference.add(model.toJson());
+    } catch (e, s) {
+      appLogger.e(
+        'Ошибка во время добавления финансовой операции',
+        error: e,
+        stackTrace: s,
+      );
+    }
   }
 
   @override
   Future<void> saveFinancesDataList(models) async {
     for (final model in models) {
       await saveFinanceData(model);
+    }
+  }
+
+  @override
+  Future<UserModel?> getAuthorizedUser({required String login, required String password}) async {
+    final event = await usersReference.get();
+
+    for (final doc in event.docs) {
+      final userJson = doc.data();
+      if (userJson['email'] == login && userJson['password'] == password) {
+        return UserModel.fromJson(userJson, doc.id);
+      }
+    }
+
+    return null;
+  }
+
+  CollectionReference<Map<String, dynamic>> getFinancialOperationsReference() {
+    final token = authService.getToken();
+    if (token == null) throw Exception('Токена нет во время операции с базой данных');
+
+    final user = usersReference.doc(token);
+    return user.collection('financialOperations');
+  }
+
+  @override
+  Future<void> changeUserData({String? login, String? password, String? firstName, String? lastName}) async {
+    final token = authService.getToken();
+    if (token == null) throw Exception('Токена нет во время операции с базой данных');
+
+    final user = usersReference.doc(token);
+    final userData = (await user.get()).data();
+    if (userData != null) {
+      final newUser = UserModel(
+        id: user.id,
+        firstName: firstName?.isNotEmpty ?? false ? firstName : userData['firstname'],
+        lastName: lastName?.isNotEmpty ?? false ? lastName : userData['lastname'],
+        email: login?.isNotEmpty ?? false ? login : userData['email'],
+        password: password?.isNotEmpty ?? false ? password : userData['password'],
+      );
+
+      user.set(newUser.toJson());
     }
   }
 }

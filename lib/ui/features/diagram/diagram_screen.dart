@@ -1,3 +1,4 @@
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/blocs/local/diagram_bloc.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
 import 'package:findet/ui/features/diagram/widgets/dates_filter.dart';
@@ -24,6 +25,7 @@ class _DiagramScreenState extends State<DiagramScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.watch<ThemeBloc>().state.colors;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -42,11 +44,7 @@ class _DiagramScreenState extends State<DiagramScreen> {
                               isVisible: true,
                               overflowMode: LegendItemOverflowMode.wrap,
                             ),
-                            palette: const <Color>[
-                              Color(0xffBD98EA),
-                              Color(0xff8974A3),
-                              Color(0xff67478E),
-                            ],
+                            palette: colors.diagramColors.toPalette(),
                             series: <CircularSeries>[
                               PieSeries<FinancialOperationModel?, String>(
                                 dataSource: state.financialOperations,
@@ -65,12 +63,12 @@ class _DiagramScreenState extends State<DiagramScreen> {
                               )
                             ],
                           )
-                        : const Center(
+                        : Center(
                             child: Text(
                             'В этот день расходов не наблюдается ☺👍',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color(0xffB4DBFF),
+                              color: colors.secondaryBlueColor,
                               fontSize: 23,
                             ),
                           ))

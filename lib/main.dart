@@ -1,7 +1,13 @@
 import 'package:findet/blocs/blocs.dart';
+import 'package:findet/blocs/global/auth_bloc.dart';
+import 'package:findet/blocs/global/localization_bloc.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/data/datasources_impl/db_datasource_impl/db_datasource_impl.dart';
+import 'package:findet/data/services_impl/auth_service_impl.dart';
+import 'package:findet/data/services_impl/toasts_service_impl.dart';
 import 'package:findet/firebase_options.dart';
 import 'package:findet/generated/l10n.dart';
+import 'package:findet/helpers/global_data.dart';
 import 'package:findet/ui/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +39,6 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  // Добавить сохранение языка в SharedPreferences
   Locale _locale = const Locale('ru');
 
   changeLanguage(Locale locale) {
@@ -42,13 +47,26 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
+  void setupDI() {
+    toastService = ToastsServiceImpl();
+    datasource = DBDatasourceImpl();
+    // Инициализация происходит в AuthBloc-е
+    authService = AuthServiceImpl();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setupDI();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: providers,
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) => MaterialApp.router(
-          locale: _locale,
+          locale: context.watch<LocalizationBloc>().state.isRussian ? const Locale('ru') : const Locale('en'),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
