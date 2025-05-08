@@ -1,4 +1,5 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/global_data.dart';
 import 'package:findet/ui/common/default_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
     final colors = context.watch<ThemeBloc>().state.colors;
 
     return Scaffold(
-      appBar: const DefaultAppBar(title: 'Персональные категории'),
+      appBar: DefaultAppBar(title: S.of(context).personal_categories_title),
       body: Center(
         child: SizedBox(
           child: OutlinedButton(
@@ -27,7 +28,8 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
               showModalBottomSheet(
                 context: context,
                 shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(25.0)),
                 ),
                 builder: (BuildContext context) {
                   return Padding(
@@ -36,9 +38,9 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text(
-                          'Добавить категорию',
-                          style: TextStyle(
+                        Text(
+                          S.of(context).add_category_title,
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -46,9 +48,9 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                         const SizedBox(height: 15),
                         TextFormField(
                           controller: _categoryController,
-                          decoration: const InputDecoration(
-                            labelText: 'Новая категория',
-                            border: OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            labelText: S.of(context).new_category_title,
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -56,10 +58,15 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                           onPressed: () {
                             final newCategory = _categoryController.text;
                             if (newCategory.isEmpty) {
-                              toastService.showErrorToast(message: 'Заполните необходимое поле', context: context);
+                              toastService.showErrorToast(
+                                  message:
+                                      S.of(context).fill_required_fields_error,
+                                  context: context);
                             } else {
                               toastService.showDefaultToast(
-                                message: 'Категория $newCategory создана',
+                                message: S
+                                    .of(context)
+                                    .category_was_created_text(newCategory),
                                 context: context,
                               );
                               _categoryController.clear();
@@ -67,14 +74,15 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
                             backgroundColor: colors.appPurple,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          child: const Center(child: Text('Добавить')),
+                          child: Center(child: Text(S.of(context).add_text)),
                         ),
                       ],
                     ),
@@ -94,9 +102,9 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: const Text(
-                'Добавить новую категорию',
-                style: TextStyle(
+              child: Text(
+                S.of(context).add_new_category_title,
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

@@ -32,19 +32,20 @@ class _SettingsMenuState extends State<SettingsMenu> {
         children: [
           SettingsMenuItem(
             title: S.of(context).theme,
-            selectedValue: themeBloc.state.isDark ? 'Dark' : 'Light',
+            selectedValue: themeBloc.state.isDark ? S.of(context).dark_theme_title : S.of(context).light_theme_title,
             onTap: widget.onThemeNavigate,
           ),
           const SizedBox(height: 6),
           SettingsMenuItem(
             title: S.of(context).localization,
-            selectedValue: Intl.getCurrentLocale() == 'ru' ? 'Russian' : 'English',
+            selectedValue:
+                Intl.getCurrentLocale() == 'ru' ? S.of(context).russian_language_title : S.of(context).english_language_title,
             onTap: widget.onLocalizationNavigate,
           ),
           const SizedBox(height: 6),
           SettingsMenuItem(
-            title: 'Персональные категории',
-            selectedValue: 'Добавьте свои собственные категории для удобства',
+            title: S.of(context).personal_categories_title,
+            selectedValue: S.of(context).personal_categories_default_selected_text,
             onTap: widget.onUserCategoriesNavigate,
           ),
         ],

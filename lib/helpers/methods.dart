@@ -11,13 +11,13 @@ set appLocale(Locale locale) {
   _appLocale = locale;
 }
 
-void setGlobalLocalization(Locale locale) {
+void setGlobalLocalization(Locale locale, BuildContext context) {
   if (S.delegate.supportedLocales.contains(locale)) {
     FToast().showToast(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Данного языка в приложении пока нет'),
+          Text(S.of(context).uncorrect_selected_language_error),
           const SizedBox(width: 3),
           SvgPicture.asset('lib/assets/images/icons/emotions/sad.svg')
         ],

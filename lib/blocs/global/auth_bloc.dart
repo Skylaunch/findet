@@ -1,4 +1,5 @@
 import 'package:findet/domain/models/user_model.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/global_data.dart';
 import 'package:findet/ui/router/routes.dart';
 import 'package:flutter/material.dart';
@@ -93,14 +94,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         authService.saveToken(token: authUser.id);
         authService.saveUser(user: authUser);
 
-        toastService.showDefaultToast(message: 'Добро пожаловать, ${authUser.firstName}', context: context);
+        toastService.showDefaultToast(message: S.of(context).welcome(authUser.firstName), context: context);
 
         emit(AuthCompletedState(user: authUser));
 
         context.go(Routes.home);
       } else {
         toastService.showErrorToast(
-          message: 'Произошла ошибка :(\nВы ввели неверный логин или пароль',
+          message: S.of(context).uncorrect_login_or_password_error,
           context: context,
         );
       }

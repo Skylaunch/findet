@@ -1,6 +1,7 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/blocs/local/diagram_bloc.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/ui/features/diagram/widgets/dates_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,7 @@ class _DiagramScreenState extends State<DiagramScreen> {
                 builder: (context, state) => state is DiagramLoadedState
                     ? state.financialOperations.isNotEmpty
                         ? SfCircularChart(
-                            title: const ChartTitle(text: 'Ваши расходы'),
+                            title: ChartTitle(text: S.of(context).your_expenses_title),
                             legend: const Legend(
                               isVisible: true,
                               overflowMode: LegendItemOverflowMode.wrap,
@@ -65,7 +66,7 @@ class _DiagramScreenState extends State<DiagramScreen> {
                           )
                         : Center(
                             child: Text(
-                            'В этот день расходов не наблюдается ☺👍',
+                            S.of(context).zero_expenses_text,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: colors.secondaryBlueColor,

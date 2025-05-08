@@ -1,4 +1,5 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/ui/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +29,12 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Добро пожаловать в Findet',
+                    S.of(context).welcome_to_app,
                     style: TextStyle(fontSize: 18, color: colors.appSecondaryPurple),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Здесь ты сможешь отслеживать\nсвои финансы',
+                    S.of(context).welcome_to_app_description,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, color: colors.secondaryColor),
                   ),
@@ -61,9 +62,9 @@ class WelcomeScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: const Text(
-                        'Далее',
-                        style: TextStyle(
+                      child: Text(
+                        S.of(context).continue_title,
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w600,

@@ -1,5 +1,6 @@
 import 'package:findet/blocs/global/auth_bloc.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/global_data.dart';
 import 'package:findet/ui/common/default_app_bar.dart';
 import 'package:findet/ui/common/textfield_with_text.dart';
@@ -25,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final colors = context.watch<ThemeBloc>().state.colors;
 
     return Scaffold(
-      appBar: const DefaultAppBar(title: 'Ваш профиль'),
+      appBar: DefaultAppBar(title: S.of(context).your_profile_title),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 18),
         child: Center(
@@ -35,16 +36,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 5),
               Text(
                 '${user!.firstName} ${user.lastName}',
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
               const SizedBox(height: 10),
-              TextFieldWithText(text: 'Имя', controller: _firstNameController),
+              TextFieldWithText(
+                  text: S.of(context).firstname_title,
+                  controller: _firstNameController),
               const SizedBox(height: 10),
-              TextFieldWithText(text: 'Фамилия', controller: _lastNameController),
+              TextFieldWithText(
+                  text: S.of(context).lastname_title,
+                  controller: _lastNameController),
               const SizedBox(height: 10),
-              TextFieldWithText(text: 'Email', controller: _emailController),
+              TextFieldWithText(
+                  text: S.of(context).email_title,
+                  controller: _emailController),
               const SizedBox(height: 10),
-              TextFieldWithText(text: 'Пароль', controller: _passwordController, withObscure: true),
+              TextFieldWithText(
+                  text: S.of(context).password_title,
+                  controller: _passwordController,
+                  withObscure: true),
               const Spacer(),
               SizedBox(
                 width: double.infinity,
@@ -56,8 +69,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final newEmail = _emailController.text;
                     final newPassword = _passwordController.text;
 
-                    if (newFirstName.isEmpty && newLastName.isEmpty && newEmail.isEmpty && newPassword.isEmpty) {
-                      toastService.showErrorToast(message: 'Необходимо заполнить хотя бы\nодно поле', context: context);
+                    if (newFirstName.isEmpty &&
+                        newLastName.isEmpty &&
+                        newEmail.isEmpty &&
+                        newPassword.isEmpty) {
+                      toastService.showErrorToast(
+                          message: S.of(context).zero_filled_fields_text,
+                          context: context);
                     } else {
                       await datasource.changeUserData(
                         login: newEmail,
@@ -72,18 +90,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _passwordController.clear();
 
                       if (context.mounted) {
-                        toastService.showDefaultToast(message: 'Данные обновлены', context: context);
+                        toastService.showDefaultToast(
+                            message: S.of(context).data_was_updated_title,
+                            context: context);
 
                         Navigator.pop(context);
                       }
                     }
                   },
                   style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(colors.appPurple),
-                    foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                    shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    backgroundColor:
+                        WidgetStateProperty.all<Color>(colors.appPurple),
+                    foregroundColor:
+                        WidgetStateProperty.all<Color>(Colors.white),
+                    shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10))),
                   ),
-                  child: const Text('Обновить'),
+                  child: Text(S.of(context).update),
                 ),
               ),
               const SizedBox(height: 12),
@@ -92,8 +115,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   context.read<AuthBloc>().add(AuthLogout(context: context));
                 },
                 child: Text(
-                  'Выйти',
-                  style: TextStyle(color: colors.appPurple, fontSize: 14, fontWeight: FontWeight.w500),
+                  S.of(context).log_out,
+                  style: TextStyle(
+                      color: colors.appPurple,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ],

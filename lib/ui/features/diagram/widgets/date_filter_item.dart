@@ -30,7 +30,7 @@ class DateFilterItem extends StatelessWidget {
         children: [
           const SizedBox(height: 12),
           Text(
-            diagramBloc.getDayFirstLetters(dateFilterTime),
+            diagramBloc.getDayFirstLetters(dateFilterTime, context),
             style: TextStyle(
               color: colors.secondaryBlueColor,
               fontSize: 10,

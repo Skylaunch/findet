@@ -1,5 +1,6 @@
 import 'package:findet/blocs/global/auth_bloc.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/ui/common/textfield_with_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,16 +54,16 @@ class AuthScreenState extends State<AuthScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFieldWithText(text: 'Email', controller: _emailController),
+            TextFieldWithText(text: S.of(context).email_title, controller: _emailController),
             const SizedBox(height: 20),
-            TextFieldWithText(text: 'Пароль', controller: _passwordController, withObscure: true),
+            TextFieldWithText(text: S.of(context).password_title, controller: _passwordController, withObscure: true),
             const SizedBox(height: 5),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Забыли пароль?',
+                  S.of(context).forgot_password_question,
                   style: TextStyle(
                     color: colors.appPurple,
                     fontSize: 14,
@@ -82,9 +83,9 @@ class AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
                 onPressed: _login,
-                child: const Text(
-                  'Войти',
-                  style: TextStyle(
+                child: Text(
+                  S.of(context).log_in,
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                   ),
@@ -95,9 +96,9 @@ class AuthScreenState extends State<AuthScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Нет аккаунта?',
-                  style: TextStyle(
+                Text(
+                  S.of(context).no_account_question,
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
                   ),
@@ -105,7 +106,7 @@ class AuthScreenState extends State<AuthScreen> {
                 TextButton(
                   onPressed: _register,
                   child: Text(
-                    'Регистрация',
+                    S.of(context).registration,
                     style: TextStyle(
                       color: colors.appPurple,
                       fontSize: 14,

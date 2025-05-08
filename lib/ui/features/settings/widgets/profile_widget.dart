@@ -1,4 +1,5 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/global_data.dart';
 import 'package:flutter/material.dart';
 import 'package:findet/helpers/extensions.dart';
@@ -47,7 +48,7 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text('Your profile page', style: TextStyle(fontSize: 12)),
+                  Text(S.of(context).profile_page_title, style: const TextStyle(fontSize: 12)),
                 ],
               ).padding(edgeInsets: const EdgeInsets.all(12)),
               const Spacer(),

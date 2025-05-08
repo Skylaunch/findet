@@ -1,5 +1,7 @@
 import 'package:findet/domain/models/financial_operation_model.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/global_data.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Эвент блока работы с диаграммами
@@ -79,7 +81,7 @@ class DiagramBloc extends Bloc<DiagramEvent, DiagramState> {
     );
   }
 
-  String getDayFirstLetters(DateTime dateFilterTime) {
+  String getDayFirstLetters(DateTime dateFilterTime, BuildContext context) {
     switch (dateFilterTime.weekday) {
       case 1:
         return 'MO';
@@ -96,7 +98,7 @@ class DiagramBloc extends Bloc<DiagramEvent, DiagramState> {
       case 7:
         return 'SU';
       default:
-        throw ('Ошибка при преобразовании дня недели в строку');
+        throw (S.of(context).weekday_to_string_error);
     }
   }
 }
