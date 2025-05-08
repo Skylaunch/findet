@@ -1,5 +1,4 @@
 import 'package:findet/blocs/blocs.dart';
-import 'package:findet/blocs/global/auth_bloc.dart';
 import 'package:findet/blocs/global/localization_bloc.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/data/datasources_impl/db_datasource_impl/db_datasource_impl.dart';
@@ -39,12 +38,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  Locale _locale = const Locale('ru');
-
   changeLanguage(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
+    setState(() {});
   }
 
   void setupDI() {
@@ -66,7 +61,9 @@ class _MainAppState extends State<MainApp> {
       providers: providers,
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) => MaterialApp.router(
-          locale: context.watch<LocalizationBloc>().state.isRussian ? const Locale('ru') : const Locale('en'),
+          locale: context.watch<LocalizationBloc>().state.isRussian
+              ? const Locale('ru')
+              : const Locale('en'),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

@@ -58,7 +58,6 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                             if (newCategory.isEmpty) {
                               toastService.showErrorToast(message: 'Заполните необходимое поле', context: context);
                             } else {
-                              // TODO: Добавление категории
                               toastService.showDefaultToast(
                                 message: 'Категория $newCategory создана',
                                 context: context,

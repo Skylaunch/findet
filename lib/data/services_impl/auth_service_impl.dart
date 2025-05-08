@@ -43,6 +43,7 @@ class AuthServiceImpl extends AuthService {
       final userMap = jsonDecode(userString) as Map<String, dynamic>;
       return UserModel.fromJson(userMap, id);
     }
+    return null;
   }
 
   @override

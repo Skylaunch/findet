@@ -59,7 +59,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (newFirstName.isEmpty && newLastName.isEmpty && newEmail.isEmpty && newPassword.isEmpty) {
                       toastService.showErrorToast(message: 'Необходимо заполнить хотя бы\nодно поле', context: context);
                     } else {
-                      // TODO: Перенести в authBloc, чтобы подключить watch во всех местах где используется имя юзера
                       await datasource.changeUserData(
                         login: newEmail,
                         password: newPassword,

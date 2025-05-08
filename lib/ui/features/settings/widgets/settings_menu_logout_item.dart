@@ -1,6 +1,5 @@
 import 'package:findet/helpers/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SettingsMenuLogoutItem extends StatelessWidget {
   const SettingsMenuLogoutItem({
