@@ -1,4 +1,5 @@
 import 'package:findet/blocs/global/localization_bloc.dart';
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/generated/l10n.dart';
 import 'package:findet/ui/common/default_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _LocalizationsScreenState extends State<LocalizationsScreen> {
   @override
   Widget build(BuildContext context) {
     final currentLanguage = isRussianSelected ? S.of(context).russian_language_title : S.of(context).english_language_title;
+    final colors = context.watch<ThemeBloc>().state.colors;
     return Scaffold(
       appBar: DefaultAppBar(title: S.of(context).localization),
       body: Center(
@@ -29,17 +31,17 @@ class _LocalizationsScreenState extends State<LocalizationsScreen> {
             ),
             const SizedBox(height: 20),
             ToggleButtons(
-              fillColor: Colors.blue,
+              fillColor: colors.primaryBlueColor,
               isSelected: [isRussianSelected, !isRussianSelected],
               onPressed: (_) {
-                localizationBloc.add(LocalizationChangeEvent(isRussian: isRussianSelected));
                 setState(() {
                   isRussianSelected = !isRussianSelected;
                 });
+                localizationBloc.add(LocalizationChangeEvent(isRussian: isRussianSelected));
               },
               children: const <Widget>[
-                Text('ENG'),
                 Text('RU'),
+                Text('ENG'),
               ],
             ),
           ],

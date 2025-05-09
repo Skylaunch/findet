@@ -33,6 +33,13 @@ class _DiagramScreenState extends State<DiagramScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const DatesFilter(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 9),
+              child: Container(
+                height: 1,
+                color: colors.secondaryBorderColor,
+              ),
+            ),
             const SizedBox(height: 31),
             SizedBox(
               height: 480,
@@ -40,7 +47,8 @@ class _DiagramScreenState extends State<DiagramScreen> {
                 builder: (context, state) => state is DiagramLoadedState
                     ? state.financialOperations.isNotEmpty
                         ? SfCircularChart(
-                            title: ChartTitle(text: S.of(context).your_expenses_title),
+                            title: ChartTitle(
+                                text: S.of(context).your_expenses_title),
                             legend: const Legend(
                               isVisible: true,
                               overflowMode: LegendItemOverflowMode.wrap,
@@ -49,8 +57,12 @@ class _DiagramScreenState extends State<DiagramScreen> {
                             series: <CircularSeries>[
                               PieSeries<FinancialOperationModel?, String>(
                                 dataSource: state.financialOperations,
-                                xValueMapper: (FinancialOperationModel? value, _) => value?.category,
-                                yValueMapper: (FinancialOperationModel? value, _) => value?.subtractedValue,
+                                xValueMapper:
+                                    (FinancialOperationModel? value, _) =>
+                                        value?.category,
+                                yValueMapper:
+                                    (FinancialOperationModel? value, _) =>
+                                        value?.subtractedValue,
                                 explode: true,
                                 explodeOffset: '10%',
                                 dataLabelSettings: const DataLabelSettings(

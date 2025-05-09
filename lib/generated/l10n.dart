@@ -210,10 +210,10 @@ class S {
     );
   }
 
-  /// `There are no expenses on this day ☺👍`
+  /// `There are no expenses\non this day ☺👍`
   String get zero_expenses_text {
     return Intl.message(
-      'There are no expenses on this day ☺👍',
+      'There are no expenses\non this day ☺👍',
       name: 'zero_expenses_text',
       desc: '',
       args: [],
@@ -413,6 +413,121 @@ class S {
   /// `Themization`
   String get themization {
     return Intl.message('Themization', name: 'themization', desc: '', args: []);
+  }
+
+  /// `Quote of the day`
+  String get day_quote_title {
+    return Intl.message(
+      'Quote of the day',
+      name: 'day_quote_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How much have you spent?`
+  String get spent_sum_title {
+    return Intl.message(
+      'How much have you spent?',
+      name: 'spent_sum_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message('Description', name: 'description', desc: '', args: []);
+  }
+
+  /// `Category`
+  String get category {
+    return Intl.message('Category', name: 'category', desc: '', args: []);
+  }
+
+  /// `Select Item`
+  String get select_item_title {
+    return Intl.message(
+      'Select Item',
+      name: 'select_item_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get apply {
+    return Intl.message('Apply', name: 'apply', desc: '', args: []);
+  }
+
+  /// `A wise person should have money in their head, but not in their heart`
+  String get first_quote {
+    return Intl.message(
+      'A wise person should have money in their head, but not in their heart',
+      name: 'first_quote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discipline is the key to success`
+  String get discipline_title {
+    return Intl.message(
+      'Discipline is the key to success',
+      name: 'discipline_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message('Edit', name: 'edit', desc: '', args: []);
+  }
+
+  /// `MO`
+  String get short_monday {
+    return Intl.message('MO', name: 'short_monday', desc: '', args: []);
+  }
+
+  /// `TU`
+  String get short_tuesday {
+    return Intl.message('TU', name: 'short_tuesday', desc: '', args: []);
+  }
+
+  /// `WE`
+  String get short_wednesday {
+    return Intl.message('WE', name: 'short_wednesday', desc: '', args: []);
+  }
+
+  /// `TH`
+  String get short_thursday {
+    return Intl.message('TH', name: 'short_thursday', desc: '', args: []);
+  }
+
+  /// `FR`
+  String get short_friday {
+    return Intl.message('FR', name: 'short_friday', desc: '', args: []);
+  }
+
+  /// `SA`
+  String get short_saturday {
+    return Intl.message('SA', name: 'short_saturday', desc: '', args: []);
+  }
+
+  /// `SU`
+  String get short_sunday {
+    return Intl.message('SU', name: 'short_sunday', desc: '', args: []);
+  }
+
+  /// `The entry was successfully added`
+  String get successful_adding_spent {
+    return Intl.message(
+      'The entry was successfully added',
+      name: 'successful_adding_spent',
+      desc: '',
+      args: [],
+    );
   }
 }
 

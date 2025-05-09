@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Add new category",
     ),
     "add_text": MessageLookupByLibrary.simpleMessage("Add"),
+    "apply": MessageLookupByLibrary.simpleMessage("Apply"),
+    "category": MessageLookupByLibrary.simpleMessage("Category"),
     "category_was_created_text": m0,
     "continue_title": MessageLookupByLibrary.simpleMessage("Continue"),
     "current_language_title": m1,
@@ -44,11 +46,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "data_was_updated_title": MessageLookupByLibrary.simpleMessage(
       "The data has been updated",
     ),
+    "day_quote_title": MessageLookupByLibrary.simpleMessage("Quote of the day"),
+    "description": MessageLookupByLibrary.simpleMessage("Description"),
     "diagram_tab": MessageLookupByLibrary.simpleMessage("diagram"),
+    "discipline_title": MessageLookupByLibrary.simpleMessage(
+      "Discipline is the key to success",
+    ),
+    "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "email_title": MessageLookupByLibrary.simpleMessage("Email"),
     "english_language_title": MessageLookupByLibrary.simpleMessage("English"),
     "fill_required_fields_error": MessageLookupByLibrary.simpleMessage(
       "Fill in the required field",
+    ),
+    "first_quote": MessageLookupByLibrary.simpleMessage(
+      "A wise person should have money in their head, but not in their heart",
     ),
     "firstname_title": MessageLookupByLibrary.simpleMessage("Name"),
     "forgot_password_question": MessageLookupByLibrary.simpleMessage(
@@ -80,7 +91,21 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "registration": MessageLookupByLibrary.simpleMessage("Registration"),
     "russian_language_title": MessageLookupByLibrary.simpleMessage("Russian"),
+    "select_item_title": MessageLookupByLibrary.simpleMessage("Select Item"),
     "settings_tab": MessageLookupByLibrary.simpleMessage("settings"),
+    "short_friday": MessageLookupByLibrary.simpleMessage("FR"),
+    "short_monday": MessageLookupByLibrary.simpleMessage("MO"),
+    "short_saturday": MessageLookupByLibrary.simpleMessage("SA"),
+    "short_sunday": MessageLookupByLibrary.simpleMessage("SU"),
+    "short_thursday": MessageLookupByLibrary.simpleMessage("TH"),
+    "short_tuesday": MessageLookupByLibrary.simpleMessage("TU"),
+    "short_wednesday": MessageLookupByLibrary.simpleMessage("WE"),
+    "spent_sum_title": MessageLookupByLibrary.simpleMessage(
+      "How much have you spent?",
+    ),
+    "successful_adding_spent": MessageLookupByLibrary.simpleMessage(
+      "The entry was successfully added",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "themization": MessageLookupByLibrary.simpleMessage("Themization"),
     "uncorrect_login_or_password_error": MessageLookupByLibrary.simpleMessage(
@@ -103,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "your_profile_title": MessageLookupByLibrary.simpleMessage("Your profile"),
     "zero_expenses_text": MessageLookupByLibrary.simpleMessage(
-      "There are no expenses on this day ☺👍",
+      "There are no expenses\non this day ☺👍",
     ),
     "zero_filled_fields_text": MessageLookupByLibrary.simpleMessage(
       "It is necessary to fill in at least\none field",

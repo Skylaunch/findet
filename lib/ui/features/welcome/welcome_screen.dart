@@ -30,13 +30,17 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   Text(
                     S.of(context).welcome_to_app,
-                    style: TextStyle(fontSize: 18, color: colors.appSecondaryPurple),
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: colors.appSecondaryPurple,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     S.of(context).welcome_to_app_description,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: colors.secondaryColor),
+                    style:
+                        TextStyle(fontSize: 16, color: colors.defaultLightGray),
                   ),
                 ],
               ),
@@ -50,12 +54,12 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       context.go(Routes.auth);
                     },
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(colors.appPurple),
-                      shape: WidgetStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: colors.appPurple,
+                      side: BorderSide.none,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide.none,
                       ),
                     ),
                     child: Container(
@@ -64,9 +68,9 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       child: Text(
                         S.of(context).continue_title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: colors.defaultWhite,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

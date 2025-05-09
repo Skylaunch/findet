@@ -32,7 +32,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
             ),
             const SizedBox(height: 20),
             ToggleButtons(
-              fillColor: Colors.blue,
+              fillColor: _themeBloc.state.colors.primaryBlueColor,
               isSelected: [_isDarkThemeSelected, !_isDarkThemeSelected],
               onPressed: (_) {
                 _themeBloc.add(ThemeChangedEvent());

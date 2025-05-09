@@ -77,7 +77,7 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 50, vertical: 15),
                             backgroundColor: colors.appPurple,
-                            foregroundColor: Colors.white,
+                            foregroundColor: colors.primaryTextColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -104,9 +104,9 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
               ),
               child: Text(
                 S.of(context).add_new_category_title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: Colors.white,
+                  color: colors.primaryTextColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),

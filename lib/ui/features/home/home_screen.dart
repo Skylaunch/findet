@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/extensions.dart';
 import 'package:findet/ui/features/home/widgets/add_operation_widget.dart';
 import 'package:findet/ui/features/home/widgets/quote_item.dart';
@@ -22,17 +23,12 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    // Перенести в l10n и вынести в блок бюджета
-                    'Всё снова хорошо, бюджет\nпочти полон 😁',
-                    // 'Я не волнуюсь, но от бюджета\nосталось менее 75% 😅',
-                    // 'По моим подсчётам, от\nбюджета осталось менее 50% 😮',
-                    // 'Ох... похоже осталось\nболее 25% бюджета 😱',
-                    // 'Неудача... Мы вышли за рамки\nзапланированного бюджета! 😓',
+                  Text(
+                    S.of(context).discipline_title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.white,
+                      color: colors.primaryTextColor,
                     ),
                   ).padding(
                     edgeInsets: const EdgeInsets.only(bottom: 30, top: 15),
@@ -51,10 +47,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: QuoteItem(
-                quoteText: 'A wise person should have money in their head, but not in their heart',
+                quoteText: S.of(context).first_quote,
               ),
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/domain/models/enum/currency_type.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/extensions.dart';
 import 'package:findet/helpers/global_data.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,14 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
   final _amountController = TextEditingController();
 
   // Список категорий (замените своими)
-  final List<String> _categories = ['Food', 'Shopping', 'Entertainment', 'Other', 'Other2', 'Other3'];
+  final List<String> _categories = [
+    'Food',
+    'Shopping',
+    'Entertainment',
+    'Other',
+    'Other2',
+    'Other3'
+  ];
 
   final List<String> _currencies = ['USD', 'RUB', 'BYN', 'EUR'];
 
@@ -46,11 +54,11 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: colors.secondaryColor,
+          color: colors.secondaryBGColor,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withAlpha(50),
+              color: colors.secondaryColor.withAlpha(50),
               spreadRadius: 2,
               blurRadius: 5,
               offset: const Offset(0, 3),
@@ -64,11 +72,11 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
             children: [
               // Заголовок
               Text(
-                'How much have you spent?',
+                S.of(context).spent_sum_title,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: colors.primaryColor,
+                  color: colors.primaryTextColor,
                 ),
               ).padding(edgeInsets: const EdgeInsets.only(left: 2)),
               const SizedBox(height: 4),
@@ -84,11 +92,13 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: DropdownButtonFormField2<String>(
-                        decoration: const InputDecoration.collapsed(hintText: ''),
+                        decoration:
+                            const InputDecoration.collapsed(hintText: ''),
                         iconStyleData: IconStyleData(
                           icon: SvgPicture.asset(
                             'lib/assets/images/icons/additionals/chevron_down.svg',
-                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(
+                                colors.primaryTextColor, BlendMode.srcIn),
                           ),
                         ),
                         menuItemStyleData: const MenuItemStyleData(
@@ -102,7 +112,9 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                                     item,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: _selectedCurrency == item ? Colors.white : colors.primaryColor,
+                                      color: _selectedCurrency == item
+                                          ? colors.primaryTextColor
+                                          : colors.secondaryColor.withAlpha(90),
                                     ),
                                   ),
                                 ))
@@ -117,48 +129,51 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                           offset: const Offset(0, -8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: Colors.grey,
+                            color: colors.secondaryBGColor,
                           ),
                           scrollbarTheme: ScrollbarThemeData(
                             radius: const Radius.circular(40),
                             thickness: WidgetStateProperty.all<double>(6),
-                            thumbColor: WidgetStateProperty.all<Color>(Colors.black),
+                            thumbColor: WidgetStateProperty.all<Color>(
+                                colors.primaryColor),
                           ),
                         ),
                       ),
                     ),
                   ),
                   border: const OutlineInputBorder(),
-                  contentPadding: const EdgeInsets.only(left: 12, right: 6, top: 8, bottom: 8),
+                  contentPadding: const EdgeInsets.only(
+                      left: 12, right: 6, top: 8, bottom: 8),
                 ),
               ),
               const SizedBox(height: 8),
 
               // Описание транзакции
               Text(
-                'Description',
+                S.of(context).description,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: colors.primaryColor,
+                  color: colors.primaryTextColor,
                 ),
               ).padding(edgeInsets: const EdgeInsets.only(left: 2)),
               TextFormField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
               ),
               const SizedBox(height: 8),
 
               // Категория
               Text(
-                'Category',
+                S.of(context).category,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: colors.primaryColor,
+                  color: colors.primaryTextColor,
                 ),
               ).padding(edgeInsets: const EdgeInsets.only(left: 2)),
               DropdownButtonFormField2<String>(
@@ -167,13 +182,15 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                   border: OutlineInputBorder(),
                 ),
                 iconStyleData: IconStyleData(
-                    icon: SvgPicture.asset(
-                  'lib/assets/images/icons/additionals/chevron_down.svg',
-                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                ).padding(edgeInsets: const EdgeInsets.only(right: 4))),
-                hint: const Text(
-                  'Select Item',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  icon: SvgPicture.asset(
+                    'lib/assets/images/icons/additionals/chevron_down.svg',
+                    colorFilter: ColorFilter.mode(
+                        colors.primaryTextColor, BlendMode.srcIn),
+                  ).padding(edgeInsets: const EdgeInsets.only(right: 4)),
+                ),
+                hint: Text(
+                  S.of(context).select_item_title,
+                  style: TextStyle(fontSize: 14, color: colors.primaryTextColor),
                 ),
                 menuItemStyleData: const MenuItemStyleData(height: 40),
                 value: _selectedCategory,
@@ -184,7 +201,9 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                             item,
                             style: TextStyle(
                               fontSize: 16,
-                              color: _selectedCategory == item ? Colors.white : colors.primaryColor,
+                              color: _selectedCategory == item
+                                  ? colors.primaryTextColor
+                                  : colors.secondaryColor.withAlpha(90),
                             ),
                           ),
                         ))
@@ -199,12 +218,13 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                   offset: const Offset(0, -8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: Colors.grey,
+                    color: colors.secondaryBGColor,
                   ),
                   scrollbarTheme: ScrollbarThemeData(
                     radius: const Radius.circular(40),
                     thickness: WidgetStateProperty.all<double>(6),
-                    thumbColor: WidgetStateProperty.all<Color>(Colors.black),
+                    thumbColor:
+                        WidgetStateProperty.all<Color>(colors.primaryTextColor),
                   ),
                 ),
               ),
@@ -213,15 +233,18 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final now = DateTime.now();
-                    final subtractedValue = double.tryParse(_amountController.text) ?? 0;
+                    final subtractedValue =
+                        double.tryParse(_amountController.text) ?? 0;
                     final description = _descriptionController.text;
 
-                    if (_selectedCurrency != null && _selectedCategory != null) {
-                      final currencyType = CurrencyType.fromString(_selectedCurrency!);
+                    if (_selectedCurrency != null &&
+                        _selectedCategory != null) {
+                      final currencyType =
+                          CurrencyType.fromString(_selectedCurrency!);
 
-                      datasource.saveFinanceData(
+                      await datasource.saveFinanceData(
                         FinancialOperationModel(
                           subtractedValue: subtractedValue,
                           currency: currencyType,
@@ -230,13 +253,26 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                           time: DateTime.utc(now.year, now.month, now.day),
                         ),
                       );
+
+                      if (context.mounted) {
+                        toastService.showDefaultToast(
+                          message: S.of(context).successful_adding_spent,
+                          context: context,
+                        );
+
+                        setState(() {
+                          _descriptionController.clear();
+                          _amountController.clear();
+                          _selectedCategory = null;
+                        });
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     textStyle: const TextStyle(fontSize: 16),
                   ),
-                  child: const Text('Apply'),
+                  child: Text(S.of(context).apply),
                 ),
               ),
             ],

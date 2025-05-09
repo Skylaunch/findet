@@ -26,23 +26,24 @@ class _DatesFilterState extends State<DatesFilter> {
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   reverse: true,
-                  // itemCount: diagramBlocState.financialOperations.length,
                   itemBuilder: (context, index) {
-                    // final operation = diagramBlocState.financialOperations[index];
-                    // final isSelected = operation.time.isEqual(diagramBlocState.filteringTime);
-
                     final now = DateTime.now();
-                    DateTime date = DateTime(now.year, now.month, now.day).toUtc().subtract(Duration(days: index));
-                    final isSelected = date.isEqual(diagramBlocState.filteringTime);
+                    DateTime date = DateTime(now.year, now.month, now.day)
+                        .toUtc()
+                        .add(const Duration(hours: 3))
+                        .subtract(Duration(days: index));
+                    final isSelected =
+                        date.isEqual(diagramBlocState.filteringTime);
 
                     return InkWell(
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       onTap: () {
-                        diagramBloc.add(DiagramDateFilteringEvent(filteringTime: date));
+                        diagramBloc.add(
+                            DiagramDateFilteringEvent(filteringTime: date));
                       },
                       child: DateFilterItem(
-                        dateFilterTime: date, //operation.time,
+                        dateFilterTime: date,
                         isSelected: isSelected,
                       ),
                     );

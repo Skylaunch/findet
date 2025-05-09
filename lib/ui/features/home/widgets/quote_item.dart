@@ -1,4 +1,5 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -74,9 +75,9 @@ class _QuoteItemState extends State<QuoteItem> with SingleTickerProviderStateMix
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            'Quote of the day',
-                            style: TextStyle(
+                          Text(
+                            S.of(context).day_quote_title,
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,

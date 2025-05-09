@@ -24,7 +24,7 @@ class ProfileWidget extends StatelessWidget {
         height: 66,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
-          color: colors.secondaryColor,
+          color: colors.menuItemBG,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -48,26 +48,34 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(S.of(context).profile_page_title, style: const TextStyle(fontSize: 12)),
+                  Text(
+                    S.of(context).profile_page_title,
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
-              ).padding(edgeInsets: const EdgeInsets.all(12)),
+              ).padding(
+                edgeInsets: const EdgeInsets.all(12),
+              ),
               const Spacer(),
               Stack(
                 children: [
                   Container(
-                    width: 55,
                     height: 40,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
-                      border: Border.all(color: Colors.blue, width: 1.2),
+                      border: Border.all(
+                          color: colors.primaryBlueColor, width: 1.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Center(
-                      child: Text(
-                        'Edit',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Center(
+                        child: Text(
+                          S.of(context).edit,
+                          style: TextStyle(
+                            color: colors.primaryBlueColor,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ),

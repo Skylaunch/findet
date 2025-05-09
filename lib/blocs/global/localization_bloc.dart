@@ -28,7 +28,7 @@ class EngLocalizationState extends LocalizationState {
 }
 
 class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
-  LocalizationBloc() : super(EngLocalizationState()) {
+  LocalizationBloc() : super(RuLocalizationState()) {
     on<LocalizationChangeEvent>((event, emit) {
       if (event.isRussian) {
         emit(RuLocalizationState());

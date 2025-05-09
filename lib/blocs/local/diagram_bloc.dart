@@ -84,19 +84,19 @@ class DiagramBloc extends Bloc<DiagramEvent, DiagramState> {
   String getDayFirstLetters(DateTime dateFilterTime, BuildContext context) {
     switch (dateFilterTime.weekday) {
       case 1:
-        return 'MO';
+        return S.of(context).short_monday;
       case 2:
-        return 'TU';
+        return S.of(context).short_tuesday;
       case 3:
-        return 'WE';
+        return S.of(context).short_wednesday;
       case 4:
-        return 'TH';
+        return S.of(context).short_thursday;
       case 5:
-        return 'FR';
+        return S.of(context).short_friday;
       case 6:
-        return 'SA';
+        return S.of(context).short_saturday;
       case 7:
-        return 'SU';
+        return S.of(context).short_sunday;
       default:
         throw (S.of(context).weekday_to_string_error);
     }

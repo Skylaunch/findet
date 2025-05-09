@@ -1,5 +1,7 @@
+import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/helpers/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsMenuLogoutItem extends StatelessWidget {
   const SettingsMenuLogoutItem({
@@ -13,14 +15,15 @@ class SettingsMenuLogoutItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.watch<ThemeBloc>().state.colors;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: double.infinity,
         height: 66,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          color: Colors.red,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          color: colors.appErrorColor,
         ),
         child: Align(
           alignment: Alignment.center,

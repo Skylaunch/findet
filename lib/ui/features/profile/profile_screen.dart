@@ -36,8 +36,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 5),
               Text(
                 '${user!.firstName} ${user.lastName}',
-                style: const TextStyle(
-                    color: Colors.white,
+                style: TextStyle(
+                    color: colors.primaryTextColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
@@ -102,11 +102,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     backgroundColor:
                         WidgetStateProperty.all<Color>(colors.appPurple),
                     foregroundColor:
-                        WidgetStateProperty.all<Color>(Colors.white),
+                        WidgetStateProperty.all<Color>(colors.defaultWhite),
                     shape: WidgetStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                   ),
-                  child: Text(S.of(context).update),
+                  child: Text(
+                    S.of(context).update,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               const SizedBox(height: 12),

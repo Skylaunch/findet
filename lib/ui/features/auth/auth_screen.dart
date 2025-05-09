@@ -85,9 +85,9 @@ class AuthScreenState extends State<AuthScreen> {
                 onPressed: _login,
                 child: Text(
                   S.of(context).log_in,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: colors.defaultWhite,
                   ),
                 ),
               ),
@@ -98,8 +98,8 @@ class AuthScreenState extends State<AuthScreen> {
               children: [
                 Text(
                   S.of(context).no_account_question,
-                  style: const TextStyle(
-                    color: Colors.grey,
+                  style: TextStyle(
+                    color: colors.secondaryColor,
                     fontSize: 14,
                   ),
                 ),

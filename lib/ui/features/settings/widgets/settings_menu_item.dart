@@ -26,7 +26,7 @@ class SettingsMenuItem extends StatelessWidget {
         height: 66,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
-          color: colors.secondaryColor,
+          color: colors.menuItemBG,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -49,7 +49,8 @@ class SettingsMenuItem extends StatelessWidget {
             const Spacer(),
             SvgPicture.asset(
               'lib/assets/images/icons/additionals/chevron_right.svg',
-              colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              colorFilter:
+                  ColorFilter.mode(colors.primaryColor, BlendMode.srcIn),
             ).padding(edgeInsets: const EdgeInsets.only(right: 16)),
           ],
         ),

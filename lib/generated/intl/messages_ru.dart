@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Добавить новую категорию",
     ),
     "add_text": MessageLookupByLibrary.simpleMessage("Добавить"),
+    "apply": MessageLookupByLibrary.simpleMessage("Применить"),
+    "category": MessageLookupByLibrary.simpleMessage("Категория"),
     "category_was_created_text": m0,
     "continue_title": MessageLookupByLibrary.simpleMessage("Далее"),
     "current_language_title": m1,
@@ -45,7 +47,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "data_was_updated_title": MessageLookupByLibrary.simpleMessage(
       "Данные обновлены",
     ),
+    "day_quote_title": MessageLookupByLibrary.simpleMessage("Цитата дня"),
+    "description": MessageLookupByLibrary.simpleMessage("Описание"),
     "diagram_tab": MessageLookupByLibrary.simpleMessage("диаграмма"),
+    "discipline_title": MessageLookupByLibrary.simpleMessage(
+      "Дисциплина - залог успеха",
+    ),
+    "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
     "email_title": MessageLookupByLibrary.simpleMessage("Email"),
     "english_language_title": MessageLookupByLibrary.simpleMessage(
       "Английский",
@@ -53,11 +61,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "fill_required_fields_error": MessageLookupByLibrary.simpleMessage(
       "Заполните необходимое поле",
     ),
+    "first_quote": MessageLookupByLibrary.simpleMessage(
+      "У мудрого человека деньги должны быть в голове, но не в сердце",
+    ),
     "firstname_title": MessageLookupByLibrary.simpleMessage("Имя"),
     "forgot_password_question": MessageLookupByLibrary.simpleMessage(
       "Забыли пароль?",
     ),
-    "home_tab": MessageLookupByLibrary.simpleMessage("дом"),
+    "home_tab": MessageLookupByLibrary.simpleMessage("главная"),
     "last_operation_time_fetching_error": MessageLookupByLibrary.simpleMessage(
       "Ошибка во время получения времени последней финансовой операции",
     ),
@@ -85,7 +96,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "registration": MessageLookupByLibrary.simpleMessage("Регистрация"),
     "russian_language_title": MessageLookupByLibrary.simpleMessage("Русский"),
+    "select_item_title": MessageLookupByLibrary.simpleMessage(
+      "Выберите элемент",
+    ),
     "settings_tab": MessageLookupByLibrary.simpleMessage("настройки"),
+    "short_friday": MessageLookupByLibrary.simpleMessage("ПТ"),
+    "short_monday": MessageLookupByLibrary.simpleMessage("ПН"),
+    "short_saturday": MessageLookupByLibrary.simpleMessage("СБ"),
+    "short_sunday": MessageLookupByLibrary.simpleMessage("ВС"),
+    "short_thursday": MessageLookupByLibrary.simpleMessage("ЧТ"),
+    "short_tuesday": MessageLookupByLibrary.simpleMessage("ВТ"),
+    "short_wednesday": MessageLookupByLibrary.simpleMessage("СР"),
+    "spent_sum_title": MessageLookupByLibrary.simpleMessage(
+      "Сколько вы потратили?",
+    ),
+    "successful_adding_spent": MessageLookupByLibrary.simpleMessage(
+      "Запись была успешно добавлена",
+    ),
     "theme": MessageLookupByLibrary.simpleMessage("Тема"),
     "themization": MessageLookupByLibrary.simpleMessage("Темизация"),
     "uncorrect_login_or_password_error": MessageLookupByLibrary.simpleMessage(
@@ -108,7 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "your_expenses_title": MessageLookupByLibrary.simpleMessage("Ваши расходы"),
     "your_profile_title": MessageLookupByLibrary.simpleMessage("Ваш профиль"),
     "zero_expenses_text": MessageLookupByLibrary.simpleMessage(
-      "В этот день расходов не наблюдается ☺👍",
+      "В этот день расходов\nне наблюдается ☺👍",
     ),
     "zero_filled_fields_text": MessageLookupByLibrary.simpleMessage(
       "Необходимо заполнить хотя бы\nодно поле",

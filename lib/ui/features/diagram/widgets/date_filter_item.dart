@@ -32,7 +32,7 @@ class DateFilterItem extends StatelessWidget {
           Text(
             diagramBloc.getDayFirstLetters(dateFilterTime, context),
             style: TextStyle(
-              color: colors.secondaryBlueColor,
+              color: isSelected ? colors.defaultWhite : colors.defaultGray,
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -41,7 +41,7 @@ class DateFilterItem extends StatelessWidget {
           Text(
             dateFilterTime.day.toString(),
             style: TextStyle(
-              color: colors.secondaryBlueColor,
+              color: isSelected ? colors.defaultWhite : colors.defaultDarkGray,
               fontSize: 16,
             ),
           ),

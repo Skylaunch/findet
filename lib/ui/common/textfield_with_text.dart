@@ -39,15 +39,15 @@ class _TextFieldWithTextState extends State<TextFieldWithText> {
         ),
         const SizedBox(height: 5),
         TextFormField(
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: colors.defaultBlack),
           controller: widget.controller,
           obscureText: widget.withObscure && _isTextObscured,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.white,
+            fillColor: colors.defaultWhite,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide.none,
+              borderSide: BorderSide(color: colors.defaultBorderColor),
             ),
             suffixIcon: widget.withObscure
                 ? InkWell(
