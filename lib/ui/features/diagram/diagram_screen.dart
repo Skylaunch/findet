@@ -1,5 +1,6 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/blocs/local/diagram_bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
 import 'package:findet/generated/l10n.dart';
 import 'package:findet/ui/features/diagram/widgets/dates_filter.dart';
@@ -55,14 +56,13 @@ class _DiagramScreenState extends State<DiagramScreen> {
                             ),
                             palette: colors.diagramColors.toPalette(),
                             series: <CircularSeries>[
-                              PieSeries<FinancialOperationModel?, String>(
-                                dataSource: state.financialOperations,
-                                xValueMapper:
-                                    (FinancialOperationModel? value, _) =>
-                                        value?.category,
-                                yValueMapper:
-                                    (FinancialOperationModel? value, _) =>
-                                        value?.subtractedValue,
+                              PieSeries<(String, num)?, String>(
+                                dataSource: sumFinancialOperations(
+                                    state.financialOperations),
+                                xValueMapper: ((String, num)? value, _) =>
+                                    value?.$1,
+                                yValueMapper: ((String, num)? value, _) =>
+                                    value?.$2,
                                 explode: true,
                                 explodeOffset: '10%',
                                 dataLabelSettings: const DataLabelSettings(
@@ -92,5 +92,29 @@ class _DiagramScreenState extends State<DiagramScreen> {
         ),
       ),
     );
+  }
+
+  // Временный метод для суммирования оперций в рамках каждой категории
+  List<(String, num)> sumFinancialOperations(
+      List<FinancialOperationModel> financialOperations) {
+    List<(String, num)> resultOperations = [];
+
+    for (final financialOperation in financialOperations) {
+      final operationWithSimilarCategory = resultOperations.firstWhereOrNull(
+          (resultOperation) =>
+              resultOperation.$1 == financialOperation.category);
+      if (operationWithSimilarCategory != null) {
+        resultOperations.remove(operationWithSimilarCategory);
+        resultOperations.add((
+          operationWithSimilarCategory.$1,
+          operationWithSimilarCategory.$2 + financialOperation.subtractedValue
+        ));
+      } else {
+        resultOperations.add(
+            (financialOperation.category, financialOperation.subtractedValue));
+      }
+    }
+
+    return resultOperations;
   }
 }
