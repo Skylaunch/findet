@@ -7,7 +7,8 @@ abstract class DBDatasource extends Injectable {
   Future<List<FinancialOperationModel>> getFinancesData();
   Future<void> saveFinanceData(FinancialOperationModel model);
   Future<void> saveFinancesDataList(List<FinancialOperationModel> models);
-  Future<void> removeFinancesData(int id);
+  Future<List<String>> getPersonalCategories();
+  Future<void> savePersonalCategory(String categoryTitle);
   Future<List<FinancialOperationModel>> getFinancesDataForDay(DateTime filteringTime);
   Future<UserModel?> getAuthorizedUser({required String login, required String password});
   Future<void> changeUserData({String? login, String? password, String? firstName, String? lastName});

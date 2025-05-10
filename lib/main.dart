@@ -3,6 +3,7 @@ import 'package:findet/blocs/global/localization_bloc.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
 import 'package:findet/data/datasources_impl/db_datasource_impl/db_datasource_impl.dart';
 import 'package:findet/data/services_impl/auth_service_impl.dart';
+import 'package:findet/data/services_impl/personal_categories_service_impl.dart';
 import 'package:findet/data/services_impl/toasts_service_impl.dart';
 import 'package:findet/firebase_options.dart';
 import 'package:findet/generated/l10n.dart';
@@ -47,6 +48,7 @@ class _MainAppState extends State<MainApp> {
     datasource = DBDatasourceImpl();
     // Инициализация происходит в AuthBloc-е
     authService = AuthServiceImpl();
+    personalCategoriesService = PersonalCategoriesServiceImpl();
   }
 
   @override

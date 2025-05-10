@@ -63,6 +63,8 @@ class _UserCategoriesScreenState extends State<UserCategoriesScreen> {
                                       S.of(context).fill_required_fields_error,
                                   context: context);
                             } else {
+                              personalCategoriesService
+                                  .savePersonalCategory(newCategory);
                               toastService.showDefaultToast(
                                 message: S
                                     .of(context)

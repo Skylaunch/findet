@@ -28,14 +28,11 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
 
   final _amountController = TextEditingController();
 
-  // Список категорий (замените своими)
-  final List<String> _categories = [
+  // Список категорий
+  final List<String> _defaultCategories = [
     'Food',
     'Shopping',
     'Entertainment',
-    'Other',
-    'Other2',
-    'Other3'
   ];
 
   final List<String> _currencies = ['USD', 'RUB', 'BYN', 'EUR'];
@@ -43,6 +40,10 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
   @override
   void initState() {
     _selectedCurrency = _currencies.first;
+
+    personalCategoriesService.addListener(() {
+      setState(() {});
+    });
 
     super.initState();
   }
@@ -176,58 +177,72 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                   color: colors.primaryTextColor,
                 ),
               ).padding(edgeInsets: const EdgeInsets.only(left: 2)),
-              DropdownButtonFormField2<String>(
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                  border: OutlineInputBorder(),
-                ),
-                iconStyleData: IconStyleData(
-                  icon: SvgPicture.asset(
-                    'lib/assets/images/icons/additionals/chevron_down.svg',
-                    colorFilter: ColorFilter.mode(
-                        colors.primaryTextColor, BlendMode.srcIn),
-                  ).padding(edgeInsets: const EdgeInsets.only(right: 4)),
-                ),
-                hint: Text(
-                  S.of(context).select_item_title,
-                  style: TextStyle(fontSize: 14, color: colors.primaryTextColor),
-                ),
-                menuItemStyleData: const MenuItemStyleData(height: 40),
-                value: _selectedCategory,
-                items: _categories
-                    .map((item) => DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(
-                            item,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: _selectedCategory == item
-                                  ? colors.primaryTextColor
-                                  : colors.secondaryColor.withAlpha(90),
-                            ),
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (selectedItem) {
-                  setState(() {
-                    _selectedCategory = selectedItem;
-                  });
-                },
-                dropdownStyleData: DropdownStyleData(
-                  maxHeight: 160,
-                  offset: const Offset(0, -8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: colors.secondaryBGColor,
-                  ),
-                  scrollbarTheme: ScrollbarThemeData(
-                    radius: const Radius.circular(40),
-                    thickness: WidgetStateProperty.all<double>(6),
-                    thumbColor:
-                        WidgetStateProperty.all<Color>(colors.primaryTextColor),
-                  ),
-                ),
-              ),
+              FutureBuilder(
+                  future: personalCategoriesService.getPersonalCategories(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox.shrink();
+                    }
+
+                    final categories = [
+                      ..._defaultCategories,
+                      ...(snapshot.data ?? [])
+                    ];
+
+                    return DropdownButtonFormField2<String>(
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                        border: OutlineInputBorder(),
+                      ),
+                      iconStyleData: IconStyleData(
+                        icon: SvgPicture.asset(
+                          'lib/assets/images/icons/additionals/chevron_down.svg',
+                          colorFilter: ColorFilter.mode(
+                              colors.primaryTextColor, BlendMode.srcIn),
+                        ).padding(edgeInsets: const EdgeInsets.only(right: 4)),
+                      ),
+                      hint: Text(
+                        S.of(context).select_item_title,
+                        style: TextStyle(
+                            fontSize: 14, color: colors.primaryTextColor),
+                      ),
+                      menuItemStyleData: const MenuItemStyleData(height: 40),
+                      value: _selectedCategory,
+                      items: categories
+                          .map((item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: _selectedCategory == item
+                                        ? colors.primaryTextColor
+                                        : colors.secondaryColor.withAlpha(90),
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (selectedItem) {
+                        setState(() {
+                          _selectedCategory = selectedItem;
+                        });
+                      },
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: 160,
+                        offset: const Offset(0, -8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: colors.secondaryBGColor,
+                        ),
+                        scrollbarTheme: ScrollbarThemeData(
+                          radius: const Radius.circular(40),
+                          thickness: WidgetStateProperty.all<double>(6),
+                          thumbColor: WidgetStateProperty.all<Color>(
+                              colors.primaryTextColor),
+                        ),
+                      ),
+                    );
+                  }),
               const SizedBox(height: 16),
               // Кнопка "Apply"
               SizedBox(
