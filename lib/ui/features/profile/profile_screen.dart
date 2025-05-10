@@ -1,5 +1,6 @@
 import 'package:findet/blocs/global/auth_bloc.dart';
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/domain/models/user_model.dart';
 import 'package:findet/generated/l10n.dart';
 import 'package:findet/helpers/global_data.dart';
 import 'package:findet/ui/common/default_app_bar.dart';
@@ -20,9 +21,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  late final UserModel _user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _user = authService.authUser!;
+    
+    setupControllers();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = authService.getAuthUser();
     final colors = context.watch<ThemeBloc>().state.colors;
 
     return Scaffold(
@@ -35,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Image.asset('lib/assets/images/app/user_avatar.png'),
               const SizedBox(height: 5),
               Text(
-                '${user!.firstName} ${user.lastName}',
+                '${_user.firstName} ${_user.lastName}',
                 style: TextStyle(
                     color: colors.primaryTextColor,
                     fontWeight: FontWeight.bold,
@@ -84,10 +95,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         lastName: newLastName,
                       );
 
-                      _firstNameController.clear();
-                      _lastNameController.clear();
-                      _emailController.clear();
-                      _passwordController.clear();
+                      authService.saveUser(
+                        user: _user.copyWith(
+                          firstName:
+                              newFirstName.isNotEmpty ? newFirstName : null,
+                          lastName: newLastName.isNotEmpty ? newLastName : null,
+                          email: newEmail.isNotEmpty ? newEmail : null,
+                          password: newPassword.isNotEmpty ? newPassword : null,
+                        ),
+                      );
 
                       if (context.mounted) {
                         toastService.showDefaultToast(
@@ -131,5 +147,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  void setupControllers() {
+    _firstNameController.text = _user.firstName;
+    _lastNameController.text = _user.lastName;
+    _emailController.text = _user.email;
+    _passwordController.text = _user.password;
   }
 }

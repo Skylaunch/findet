@@ -12,6 +12,7 @@ class AuthServiceImpl extends AuthService {
   @override
   Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
+    _authUser = _getAuthUser();
     notifyListeners();
   }
 
@@ -36,7 +37,10 @@ class AuthServiceImpl extends AuthService {
   }
 
   @override
-  UserModel? getAuthUser() {
+  UserModel? get authUser => _authUser;
+  UserModel? _authUser;
+
+  UserModel? _getAuthUser() {
     final userString = sharedPreferences.getString(userKey);
     final id = getToken();
     if (userString != null && id != null) {
@@ -49,5 +53,9 @@ class AuthServiceImpl extends AuthService {
   @override
   void saveUser({required UserModel user}) {
     sharedPreferences.setString(userKey, jsonEncode(user.toJson()));
+
+    _authUser = _getAuthUser();
+
+    notifyListeners();
   }
 }

@@ -5,7 +5,7 @@ abstract class AuthService with ChangeNotifier {
   Future<void> init();
   void saveToken({required String token});
   void saveUser({required UserModel user});
-  UserModel? getAuthUser();
+  UserModel? get authUser;
   String? getToken();
   bool isAuthenticated();
   void logout();

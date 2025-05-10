@@ -29,4 +29,20 @@ class UserModel {
         lastName: json['lastname'],
         password: json['password'],
       );
+
+  UserModel copyWith({
+    String? id,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? password,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
+  }
 }

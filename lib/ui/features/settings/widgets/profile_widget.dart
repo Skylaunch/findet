@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:findet/helpers/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget({
     super.key,
     required this.onTap,
@@ -13,12 +13,26 @@ class ProfileWidget extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    authService.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final user = authService.getAuthUser();
+    final user = authService.authUser;
     final colors = context.watch<ThemeBloc>().state.colors;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: double.infinity,
         height: 66,

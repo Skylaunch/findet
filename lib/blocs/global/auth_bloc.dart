@@ -61,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _authChanged(AuthChanged event, Emitter<AuthState> emit) {
     if (event.isAuthenticated) {
-      final user = authService.getAuthUser();
+      final user = authService.authUser;
       if (user != null) {
         emit(AuthCompletedState(user: user));
       } else {
