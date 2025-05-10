@@ -36,6 +36,9 @@ class LightThemeColors implements ThemeColors {
 
   @override
   Color get secondaryColor => const Color(0xff646464);
+  
+  @override
+  Color get secondaryLightColor => const Color(0xff646464);
 
   @override
   Color get secondaryBGColor => const Color(0xfff8f9fe);

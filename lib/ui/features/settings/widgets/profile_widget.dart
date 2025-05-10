@@ -22,7 +22,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
 
     authService.addListener(() {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

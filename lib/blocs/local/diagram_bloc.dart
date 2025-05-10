@@ -59,7 +59,8 @@ class DiagramBloc extends Bloc<DiagramEvent, DiagramState> {
     });
 
     on<DiagramDateFilteringEvent>((event, emit) async {
-      final filteredFinancialOperations = await datasource.getFinancesDataForDay(event.filteringTime);
+      final filteredFinancialOperations =
+          await datasource.getFinancesDataForDay(event.filteringTime);
 
       add(
         DiagramLoadedEvent(

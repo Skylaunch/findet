@@ -17,6 +17,7 @@ class DiagramScreen extends StatefulWidget {
 
 class _DiagramScreenState extends State<DiagramScreen> {
   late final DiagramBloc diagramBloc;
+  List<FinancialOperationModel>? _financialOperations;
 
   @override
   void initState() {
@@ -44,9 +45,17 @@ class _DiagramScreenState extends State<DiagramScreen> {
             const SizedBox(height: 31),
             SizedBox(
               height: 480,
-              child: BlocBuilder<DiagramBloc, DiagramState>(
-                builder: (context, state) => state is DiagramLoadedState
-                    ? state.financialOperations.isNotEmpty
+              child: BlocConsumer<DiagramBloc, DiagramState>(
+                listenWhen: (previous, current) =>
+                    (current is DiagramLoadedState) &&
+                    current.financialOperations != _financialOperations,
+                listener: (context, state) {
+                  setState(() {});
+                },
+                builder: (context, state) {
+                  if (state is DiagramLoadedState) {
+                    _financialOperations = state.financialOperations;
+                    return _financialOperations?.isNotEmpty ?? false
                         ? SfCircularChart(
                             title: ChartTitle(
                                 text: S.of(context).your_expenses_title),
@@ -58,13 +67,15 @@ class _DiagramScreenState extends State<DiagramScreen> {
                             series: <CircularSeries>[
                               PieSeries<(String, num)?, String>(
                                 dataSource: sumFinancialOperations(
-                                    state.financialOperations),
+                                  state.financialOperations,
+                                ).reversed.toList(),
                                 xValueMapper: ((String, num)? value, _) =>
                                     value?.$1,
                                 yValueMapper: ((String, num)? value, _) =>
                                     value?.$2,
                                 explode: true,
-                                explodeOffset: '10%',
+                                explodeOffset: '20%',
+                                strokeColor: colors.primaryTextColor,
                                 dataLabelSettings: const DataLabelSettings(
                                   isVisible: true,
                                   textStyle: TextStyle(
@@ -81,11 +92,14 @@ class _DiagramScreenState extends State<DiagramScreen> {
                             S.of(context).zero_expenses_text,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: colors.secondaryBlueColor,
+                              color: colors.primaryTextColor,
                               fontSize: 23,
                             ),
-                          ))
-                    : const Center(child: CircularProgressIndicator()),
+                          ));
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
             ),
           ],

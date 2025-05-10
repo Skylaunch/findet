@@ -9,6 +9,7 @@ abstract class ThemeColors {
   Color get primaryColor;
   Color get primaryTextColor;
   Color get secondaryColor;
+  Color get secondaryLightColor;
   Color get secondaryBGColor;
   Color get menuItemBG;
   Color get appPurple;

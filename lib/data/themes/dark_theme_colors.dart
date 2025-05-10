@@ -38,6 +38,9 @@ class DarkThemeColors implements ThemeColors {
   Color get secondaryColor => const Color(0xffa09b9b);
 
   @override
+  Color get secondaryLightColor => const Color(0xfff4f4f4);
+
+  @override
   Color get secondaryBGColor => const Color(0xff646464);
 
   @override

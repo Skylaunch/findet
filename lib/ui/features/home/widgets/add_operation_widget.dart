@@ -1,4 +1,5 @@
 import 'package:findet/blocs/global/theme_bloc.dart';
+import 'package:findet/blocs/local/diagram_bloc.dart';
 import 'package:findet/domain/models/enum/currency_type.dart';
 import 'package:findet/domain/models/financial_operation_model.dart';
 import 'package:findet/generated/l10n.dart';
@@ -30,9 +31,9 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
 
   // Список категорий
   final List<String> _defaultCategories = [
-    'Food',
-    'Shopping',
-    'Entertainment',
+    'Еда',
+    'Одежда',
+    'Развлечения',
   ];
 
   final List<String> _currencies = ['USD', 'RUB', 'BYN', 'EUR'];
@@ -42,7 +43,9 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
     _selectedCurrency = _currencies.first;
 
     personalCategoriesService.addListener(() {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
 
     super.initState();
@@ -115,7 +118,8 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                                       fontSize: 12,
                                       color: _selectedCurrency == item
                                           ? colors.primaryTextColor
-                                          : colors.secondaryColor.withAlpha(90),
+                                          : colors.secondaryLightColor
+                                              .withAlpha(90),
                                     ),
                                   ),
                                 ))
@@ -184,10 +188,10 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                       return const SizedBox.shrink();
                     }
 
-                    final categories = [
+                    final categories = <String>{
                       ..._defaultCategories,
                       ...(snapshot.data ?? [])
-                    ];
+                    };
 
                     return DropdownButtonFormField2<String>(
                       decoration: const InputDecoration(
@@ -217,7 +221,8 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                                     fontSize: 16,
                                     color: _selectedCategory == item
                                         ? colors.primaryTextColor
-                                        : colors.secondaryColor.withAlpha(90),
+                                        : colors.secondaryLightColor
+                                            .withAlpha(90),
                                   ),
                                 ),
                               ))
@@ -270,6 +275,10 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
                       );
 
                       if (context.mounted) {
+                        context
+                            .read<DiagramBloc>()
+                            .add(DiagramStartLoadingEvent());
+
                         toastService.showDefaultToast(
                           message: S.of(context).successful_adding_spent,
                           context: context,
