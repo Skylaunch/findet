@@ -32,8 +32,8 @@ class _AddOperationWidgetState extends State<AddOperationWidget> {
   // Список категорий
   final List<String> _defaultCategories = [
     'Еда',
-    'Одежда',
     'Развлечения',
+    'Дом',
   ];
 
   final List<String> _currencies = ['USD', 'RUB', 'BYN', 'EUR'];
