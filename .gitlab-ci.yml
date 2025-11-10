@@ -1,0 +1,89 @@
+stages:
+  - static
+  - test
+  - build
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: always
+
+dart-metrics-analyze:
+  stage: static
+  interruptible: true
+  before_script:
+    - flutter pub get
+  script:
+    - flutter pub run dart_code_metrics:metrics analyze --fatal-style --fatal-performance --no-fatal-warnings --reporter=console lib
+
+dart-metrics-check-unused-files:
+  stage: static
+  interruptible: true
+  before_script:
+    - flutter pub get
+  script:
+    - flutter pub run dart_code_metrics:metrics check-unused-files --fatal-unused --exclude="{lib/application/core/bloc/void_action_bloc.dart,lib/util/log.dart}" lib
+  tags:
+    - ci
+
+dart-metrics-check-unused-code:
+  rules:
+    - when: never
+  stage: static
+  interruptible: true
+  before_script:
+    - flutter pub get
+  script:
+    - flutter pub run dart_code_metrics:metrics check-unused-code --exclude="{lib/application/core/bloc/void_action_bloc.dart,lib/infrastructure/api/response_parser.dart,lib/util/log.dart}" --fatal-unused lib
+  tags:
+    - ci
+
+dart-metrics-check-unused-translations:
+  stage: static
+  interruptible: true
+  before_script:
+    - flutter pub get
+  script:
+    - dart run dart_code_metrics:metrics check-unused-l10n --fatal-unused lib
+  tags:
+    - ci
+
+code-generation-mismatch-check:
+  stage: static
+  interruptible: true
+  before_script:
+    - flutter pub get
+  script:
+    - dart run build_runner build --delete-conflicting-outputs --fail-on-severe
+    - git diff
+    - (( $(git status --porcelain|wc -l) == 0 )) || { echo >&2 "Some changes in generated files detected"; exit 1; }
+  tags:
+    - ci
+
+flutter-test:
+  stage: test
+  interruptible: false
+  before_script:
+    - flutter clean
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+  script:
+    - flutter test --update-goldens
+  tags:
+    - ci
+
+flutter_build_android_apk:
+  stage: build
+  interruptible: false
+  before_script:
+    - flutter clean
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+  script:
+    - flutter build apk --no-tree-shake-icons --flavor development -t lib/main.dart
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-development-release.apk
+    expire_in: 7 day
+  tags:
+    - cd
